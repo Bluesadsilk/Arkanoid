@@ -1,0 +1,127 @@
+<head>
+<title>Arkanoid
+</title>
+
+<style>
+    body{
+        background-color:#111;
+        }
+        
+    canvas{
+        border: 4px solid #fff;
+        border-bottom: transparent;
+        background-color: #000;
+        margin: 0 auto;
+        display: block;
+    }
+</style></head>
+
+
+    <body>
+        <canvas>
+
+        </canvas>
+    </body>
+   
+
+
+
+
+
+<script>
+    const canvas = document.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+
+    // Variables
+
+    canvas.width = 448;
+    canvas.height = 400;
+
+    let counter = 0;
+
+    /* VARIABLES DE LA PELOTA*/
+    const ballRadius = 3;
+
+    // Posicion de la pelota
+    let x = canvas.width / 2;
+    let y = canvas.height - 30;
+
+    // Velocidad de la pelota
+    let dx = -2;
+    let dy = -2;
+
+    
+    function drawBall () { 
+        ctx.beginPath();
+        ctx.arc(x , y , ballRadius, 0, Math.PI * 2);
+        ctx.fillStyle = "#fff";
+        ctx.fill();
+        ctx.closePath();
+    }
+
+
+    function drawPaddle () {
+
+     }
+    function drawBricks () { 
+
+    }
+
+    function colisionDetection () { 
+
+    }
+
+    function ballMovement () {
+
+        // Condicion de rebote en los laterales
+        if ( 
+            x + dx > canvas.width - ballRadius ||
+            x+ dx < ballRadius
+        ){
+            dx= -dx;
+        }
+
+        // Condicion de rebote vertical
+        if(
+            y + dy <ballRadius
+        ){
+            dy = -dy;;
+        }
+
+        // Condicion fin de juego
+        if (x + dy > canvas.height - ballRadius) {
+            console.log("Game Over");
+            document.location.reload;
+            
+        }
+        x += dx;
+        y += dy;
+
+
+     }
+    function paddleMovement () {
+
+     }
+
+     function cleanCanvas () {
+        ctx.clearRect(0,0, canvas.width, canvas.height)
+     }
+
+
+    function draw () {
+        cleanCanvas();
+        //Dibujos
+        drawBall();
+        drawPaddle();
+        drawBricks();
+
+        //Colisiones y movimientos
+        colisionDetection();
+        ballMovement();
+        paddleMovement();
+        window.requestAnimationFrame(draw);   
+     }
+
+     draw();
+
+</script>
